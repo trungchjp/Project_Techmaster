@@ -10,6 +10,6 @@ target 'HomeWork3' do
 	pod 'SwiftyJSON'
 	pod 'Alamofire'
 	pod 'AlamofireObjectMapper'
-
+	pod 'Kingfisher'
 	
 end

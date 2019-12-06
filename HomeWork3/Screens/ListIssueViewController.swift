@@ -12,16 +12,21 @@ class ListIssueViewController: UIViewController {
 
     @IBOutlet weak var optionSegment: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet weak var adressLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     
     static let instance = ListIssueViewController()
     
-    var isState = ["no_process", "processing", "processed"]
+    var issues = [IssueDataDetail]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.tableFooterView = UIView()
 
         navigationItem.title = "Danh sách sự cố"
     
@@ -35,6 +40,12 @@ class ListIssueViewController: UIViewController {
         navigationItem.rightBarButtonItem?.tintColor = .white
         
         getlist(index: 0)
+        
+        LoadIssuesService.issues.loadIssues { (issues) in
+            self.issues = issues
+            self.tableView.reloadData()
+        }
+        
     }
     
     @objc func nextToLeft() {
@@ -84,7 +95,7 @@ class ListIssueViewController: UIViewController {
 extension ListIssueViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        return issues.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -92,17 +103,19 @@ extension ListIssueViewController: UITableViewDelegate, UITableViewDataSource {
         if (cell == nil) {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         }
-        cell?.textLabel?.text = list[indexPath.row]
-        cell?.detailTextLabel?.text = list[indexPath.row]
+//        cell?.textLabel?.text = list[indexPath.row]
+        cell?.textLabel?.text = self.issues[indexPath.row].content
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "DetailIssueViewController") as! DetailIssueViewController
+        mainVC.info = issues[indexPath.row]
         let navigation = UINavigationController(rootViewController: mainVC)
         navigation.modalPresentationStyle = .overFullScreen
         self.present(navigation, animated: true, completion: nil)
+        
         
     }
     

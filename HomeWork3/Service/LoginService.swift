@@ -14,23 +14,38 @@ class LoginService {
     
     static let instance = LoginService()
     
+    let defaults = UserDefaults.standard
+    
+    var authToken: String {
+        get {
+            return defaults.value(forKey: TOKEN_KEY) as! String
+        }
+        set {
+            defaults.set(newValue, forKey: TOKEN_KEY)
+        }
+    }
+    
     func loginUser(phone: String, password: String, completion: @escaping (_ Success: Bool )->()) {
         let params = [
             "phone": "\(phone)",
             "password": "\(password)"
         ]
-        let url = "http://45.118.145.149:8100/login"
-        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseObject { (response: AFDataResponse<ProfileResult>) in
+
+        AF.request(URL_LOGIN, method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseObject { (response: AFDataResponse<ProfileResult>) in
             print(phone, password)
-//            print(response.result)
             if response.error == nil {
                 let profileResponse = response.value
-                if let res = profileResponse?.datas {
-                    print(res.token)
-                    completion(true)
-                    let token = profileResponse?.datas?.token
-                    let userDefault = UserDefaults.standard
-                    userDefault.set(token, forKey: "token")
+                if profileResponse?.code == 0 {
+                    if let res = profileResponse?.datas {
+                        print(res.token)
+                        completion(true)
+                        guard let token = profileResponse?.datas?.token else {return}
+                        self.authToken = token
+//                        UserDefaults.standard.set(res.token, forKey: "token")
+                    }
+                }
+                else{
+                    print(profileResponse?.message)
                 }
             } else {
                 completion(false)

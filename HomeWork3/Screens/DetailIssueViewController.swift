@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class DetailIssueViewController: UIViewController {
 
@@ -16,8 +17,16 @@ class DetailIssueViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentTextField: UITextField!
     
+    static let detail = DetailIssueViewController()
+    
+    var info = IssueDataDetail()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        adressTextField.text = info.addressissue
+        titleTextField.text = info.content
+        contentTextField.text = info.titleissue
         
         adressTextField.underlined(.gray)
         titleTextField.underlined(.gray)
@@ -33,6 +42,12 @@ class DetailIssueViewController: UIViewController {
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(back))
         navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+        
+        LoadIssuesService.issues.loadIssues { (issues) in
+//            self.users = issues
+        }
+        
+//        adressTextField.text = users.addressissue
         
     }
     
@@ -51,12 +66,13 @@ class DetailIssueViewController: UIViewController {
 extension DetailIssueViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return info.mediaissue.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .black
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath as IndexPath)
+//        cell.contentView.kf_setImageWithURL(NSURL(string: "http://your_image_url.png")!)
         return cell
     }
     

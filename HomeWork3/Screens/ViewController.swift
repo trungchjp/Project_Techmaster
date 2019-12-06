@@ -90,6 +90,7 @@ class ViewController: UIViewController {
         config()
         
         loginButton.addTarget(self, action: #selector(handLogin), for: .touchUpInside)
+        registerButton.addTarget(self, action: #selector(handRegister), for: .touchUpInside)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -97,6 +98,24 @@ class ViewController: UIViewController {
         passwordTextField.underlined(.gray)
         nameTextField.underlined(.gray)
         rePasswordTextField.underlined(.gray)
+    }
+    
+    @objc func handRegister() {
+        let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "LoginViewController") as! LoginViewController
+        self.present(mainVC, animated: true, completion: nil)
+        guard let phone = phoneTextField.text else { return }
+        guard let name = nameTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        guard let rePassword = rePasswordTextField.text else { return }
+        RegisterService.register.registerUser(name: name, phone: phone, password: password) { (success) in
+            if success && password == rePassword {
+                let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "LoginViewController") as! LoginViewController
+                let navigation = UINavigationController(rootViewController: mainVC)
+                navigation.modalPresentationStyle = .overFullScreen
+                self.present(navigation, animated: true, completion: nil)
+                print("Tạo tài khoản thành công!!!")
+            }
+        }
     }
     
     @objc func handLogin() {
