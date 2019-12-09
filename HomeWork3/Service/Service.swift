@@ -41,3 +41,147 @@ class LoginService {
         }
     }
 }
+
+class RegisterService {
+    
+    static let register = RegisterService()
+    
+    func registerUser(name: String, phone: String, password: String, completion: @escaping (_ Success: Bool )->()) {
+        let params = [
+            "name": "\(name)",
+            "phone": "\(phone)",
+            "password": "\(password)"
+        ]
+        
+        AF.request(URL_REGISTER, method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseObject { (response: AFDataResponse<ProfileResult>) in
+            print(name, phone, password)
+            if response.error == nil {
+                let profileResponse = response.value
+                if (profileResponse?.datas) != nil {
+                    completion(true)
+                }
+            } else {
+                completion(false)
+            }
+        }
+    }
+}
+
+class LoadIssuesService {
+    
+    static let issues = LoadIssuesService()
+    
+    func loadIssues1(completion: @escaping (_ arrProfile: [IssueDataDetail] )->()) {
+    
+        let header = [
+            "Authorization": UserDefaults.standard.string(forKey: "token") ?? "",
+            "Content-Type": "application/json"
+        ]
+        
+        AF.request(URL_ISSUES1, method: .get, parameters: nil, encoding: URLEncoding.default, headers: HTTPHeaders.init(header)).responseObject { (response: AFDataResponse<IssueResult>) in
+            let personResponse = response.value
+            if let res = personResponse?.datas?.issues {
+                completion(res)
+            }
+        }
+    }
+    
+    func loadIssues2(completion: @escaping (_ arrProfile: [IssueDataDetail] )->()) {
+    
+        let header = [
+            "Authorization": UserDefaults.standard.string(forKey: "token") ?? "",
+            "Content-Type": "application/json"
+        ]
+        
+        AF.request(URL_ISSUES2, method: .get, parameters: nil, encoding: URLEncoding.default, headers: HTTPHeaders.init(header)).responseObject { (response: AFDataResponse<IssueResult>) in
+            let personResponse = response.value
+            if let res = personResponse?.datas?.issues {
+                completion(res)
+            }
+        }
+    }
+    
+}
+
+class ProfileService {
+    
+    static let profile = ProfileService()
+    
+    func loadProfile(completion: @escaping (_ arrProfile: ProfileData )->()) {
+        
+        let header = [
+            "Authorization": UserDefaults.standard.string(forKey: "token") ?? "",
+            "Content-Type": "application/json"
+        ]
+
+        AF.request(URL_PROFILE, method: .get, parameters: nil, encoding: URLEncoding.default, headers: HTTPHeaders.init(header)).responseObject { (response: AFDataResponse<Profile>) in
+            let personResponse = response.value
+            if let res = personResponse?.datas {
+                completion(res)
+            }
+        }
+    }
+}
+
+class UpdateProfileService {
+    
+    static let update = UpdateProfileService()
+    
+    func updateProfile(name: String, address: String, phone: String, avatar: String, completion: @escaping (_ Success: Bool )->()) {
+        
+        let header = [
+            "Authorization": UserDefaults.standard.string(forKey: "token") ?? ""
+        ]
+        
+        let params = [
+            "name": "\(name)",
+            "address": "\(address)",
+            "phone": "\(phone)",
+            "avatar": "\(avatar)"
+        ]
+        
+        AF.request(URL_UPDATE, method: .put, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders.init(header)).responseObject { (response: AFDataResponse<Profile>) in
+            print(name, address, phone)
+            if response.error == nil {
+                let profileResponse = response.value
+                if profileResponse != nil{
+                    completion(true)
+                }
+            } else {
+                completion(false)
+            }
+        }
+    }
+}
+
+class CreateIssueService {
+    
+    static let create = CreateIssueService()
+    
+    func createIssue(title: String, content: String, address: String, media: String, completion: @escaping (_ Success: Bool )->()) {
+        
+        let header = [
+            "Authorization": UserDefaults.standard.string(forKey: "token") ?? ""
+        ]
+        
+        let params: [String: Any] = [
+          "title": "\(title)",
+          "content": "\(content)",
+          "address": "\(address)",
+          "status": "Đã xử lý",
+          "media": ["\(media)"]
+        ]
+        
+        AF.request(URL_CREATEISSUE, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders.init(header)).responseObject { (response: AFDataResponse<IssueResult>) in
+            print(title, content, address)
+            if response.error == nil {
+                let profileResponse = response.value
+                if profileResponse != nil{
+                    completion(true)
+                }
+            } else {
+                completion(false)
+            }
+        }
+    }
+}

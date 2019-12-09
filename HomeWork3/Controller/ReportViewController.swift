@@ -37,6 +37,17 @@ class ReportViewController: UIViewController {
     }
     
     @objc func send() {
-        
+        guard let title = titleTextField.text else { return }
+        guard let address = adressTextField.text else { return }
+        guard let content = contentTextField.text else { return }
+        CreateIssueService.create.createIssue(title: title, content: content, address: address, media: "") { (success) in
+            let alert = UIAlertController(title: "Cảm ơn bạn đã gửi báo cáo. Chúng tôi sẽ giải quyết trong thời gian sớm nhất", message: "", preferredStyle: UIAlertController.Style.alert)
+            let action = UIAlertAction(title: "OK", style: .default) { (_) in
+                self.slideMenuController()?.toggleLeft()
+            }
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
+            print("Báo cáo sự cố thành công")
+        }
     }
 }

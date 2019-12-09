@@ -25,8 +25,8 @@ class DetailIssueViewController: UIViewController {
         super.viewDidLoad()
         
         adressTextField.text = info.addressissue
-        titleTextField.text = info.content
-        contentTextField.text = info.titleissue
+        titleTextField.text = info.titleissue
+        contentTextField.text = info.content
         
         adressTextField.underlined(.gray)
         titleTextField.underlined(.gray)
@@ -42,12 +42,6 @@ class DetailIssueViewController: UIViewController {
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(back))
         navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-        
-        LoadIssuesService.issues.loadIssues { (issues) in
-//            self.users = issues
-        }
-        
-//        adressTextField.text = users.addressissue
         
     }
     
@@ -69,16 +63,9 @@ extension DetailIssueViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath as IndexPath)
-//        cell.contentView.kf_setImageWithURL(NSURL(string: "http://your_image_url.png")!)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "call", for: indexPath)
         return cell
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let size = ((collectionView.bounds.width - 1)/2)
-//        return CGSize(width: size, height: size)
-//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 16

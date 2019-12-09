@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController {
+class RegisterViewController: UIViewController {
     
     let contentView:UIView = {
         let view = UIView()

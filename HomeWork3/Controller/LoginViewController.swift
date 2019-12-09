@@ -96,7 +96,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc func handRegister() {
-        let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ViewController") as! ViewController
+        let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "RegisterViewController") as! RegisterViewController
         self.present(mainVC, animated: true, completion: nil)
     }
     
@@ -122,9 +122,8 @@ class LoginViewController: UIViewController {
             if success {
                 let listVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ListIssueViewController") as! ListIssueViewController
                 let leftVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "LeftMenuViewController") as! LeftMenuViewController
-                leftVC.modalPresentationStyle = .overFullScreen
                 let navigation = UINavigationController(rootViewController: listVC)
-                navigation.modalPresentationStyle = .overFullScreen
+                navigation.modalPresentationStyle = .overCurrentContext
                 let slideMenuController = SlideMenuController(mainViewController: navigation, leftMenuViewController: leftVC)
                 self.present(slideMenuController, animated: true, completion: nil)
                 print("Đăng nhập thành công!!!")

@@ -12,10 +12,6 @@ class ListIssueViewController: UIViewController {
 
     @IBOutlet weak var optionSegment: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var contentLabel: UILabel!
-    @IBOutlet weak var adressLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
     
     var issues = [IssueDataDetail]()
     
@@ -23,9 +19,8 @@ class ListIssueViewController: UIViewController {
         super.viewDidLoad()
         
         self.addLeftBarButtonWithImage(UIImage(named: "ic_menu")!)
-//        self.slideMenuController()?.removeLeftGestures()
-//        self.slideMenuController()?.addLeftGestures()
         
+        tableView.register(UINib(nibName: "ListIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "ListIssueTableViewCell")
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
@@ -41,9 +36,7 @@ class ListIssueViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(search))
         navigationItem.rightBarButtonItem?.tintColor = .white
         
-        getlist(index: 0)
-        
-        LoadIssuesService.issues.loadIssues { (issues) in
+        LoadIssuesService.issues.loadIssues1 { (issues) in
             self.issues = issues
             self.tableView.reloadData()
         }
@@ -54,24 +47,24 @@ class ListIssueViewController: UIViewController {
         
     }
     
-    var list1 = ["aaaa","cccc"]
-    var list2 = ["bbbb","dddd"]
-    var list:[String] = []
-    
-    
-    func getlist(index: Int) {
-        list = (index == 0) ? list1 : list2
-    }
-    
     @IBAction func optionSegment(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex
         {
         case 0:
-            getlist(index: 1)
+            LoadIssuesService.issues.loadIssues1 { (issues) in
+                self.issues = issues
+                self.tableView.reloadData()
+            }
         case 1:
-            getlist(index: 0)
+            LoadIssuesService.issues.loadIssues2 { (issues) in
+                self.issues = issues
+                self.tableView.reloadData()
+            }
         default:
-            getlist(index: 0)
+            LoadIssuesService.issues.loadIssues1 { (issues) in
+                self.issues = issues
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -84,13 +77,12 @@ extension ListIssueViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        if (cell == nil) {
-            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-        }
-//        cell?.textLabel?.text = list[indexPath.row]
-        cell?.textLabel?.text = self.issues[indexPath.row].content
-        return cell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ListIssueTableViewCell", for: indexPath) as! ListIssueTableViewCell
+//        cell?.textLabel?.text = self.issues[indexPath.row].titleissue
+        cell.titleLabel.text = issues[indexPath.row].titleissue
+        cell.timeLabel.text = issues[indexPath.row].timeissue
+        cell.dateLabel.text = issues[indexPath.row].dateissue
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

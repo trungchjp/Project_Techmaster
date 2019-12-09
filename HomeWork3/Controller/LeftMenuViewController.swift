@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class LeftMenuViewController: UIViewController {
     
@@ -26,7 +27,7 @@ class LeftMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        avatarImageView.image = UIImage(named: "avatar")
+        
         avatarImageView.layer.cornerRadius = self.avatarImageView.frame.width/2
         
         tableView.register(UINib(nibName: "LeftMenuTableViewCell", bundle: nil), forCellReuseIdentifier: "LeftMenuTableViewCell")
@@ -46,6 +47,7 @@ class LeftMenuViewController: UIViewController {
             self.profile = entity
             self.nameLabel.text = self.profile.name
             self.phoneLabel.text = self.profile.phone
+            self.avatarImageView.setImage(self.profile.avatar)
         }
         
     }
@@ -54,9 +56,8 @@ class LeftMenuViewController: UIViewController {
         let alert = UIAlertController(title: "Bạn có chắc chắn muốn đăng xuất ?", message: "", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let ok = UIAlertAction(title: "OK", style: .default) { (_) in
-            let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "LoginViewController") as! LoginViewController
-            self.present(mainVC, animated: false, completion: nil)
-            self.moveSlide()
+            self.resetDefaults()
+            LogoutUser.updateRootVC()
         }
         alert.addAction(ok)
         alert.addAction(cancel)
@@ -122,25 +123,33 @@ extension LeftMenuViewController: UITableViewDelegate, UITableViewDataSource {
             let navigation = UINavigationController(rootViewController: mainVC)
             self.slideMenuController()?.changeMainViewController(navigation, close: true)
         case "Đăng xuất":
-            self.resetDefaults()
+            self.confirm()
             print("Đăng xuất")
-            confirm()
-            
         default:
-            return
+            let listVC = ListIssueViewController()
+            let navigation = UINavigationController(rootViewController: listVC)
+            self.slideMenuController()?.changeMainViewController(navigation, close: true)
         }
     }
     
     func resetDefaults() {
-        let defaults = UserDefaults.standard
-        let dictionary = defaults.dictionaryRepresentation()
-        dictionary.keys.forEach { key in
-            defaults.removeObject(forKey: key)
-        }
+        UserDefaults.standard.removeObject(forKey: "token")
     }
 
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+}
+
+extension UIImageView {
+    
+    func setImage(_ url: String) {
+        let urlString = "\(URL_BASE)\(url)"
+        if let url2 = URL(string: urlString){
+            let placeholder = UIImage(named: "avatar")
+            self.kf.indicatorType = .activity
+            self.kf.setImage(with: url2,placeholder: placeholder)
+        }
     }
 }

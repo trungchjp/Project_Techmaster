@@ -13,3 +13,9 @@ struct Category {
     var name: String
     
 }
+
+struct ContentIssue {
+    var title: String
+    var time: String
+    var date: String
+}

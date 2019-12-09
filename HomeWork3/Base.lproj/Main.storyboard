@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Register View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="ViewController" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="ViewController" customModule="HomeWork3" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterViewController" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="RegisterViewController" customModule="HomeWork3" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -37,24 +37,24 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gQ5-RB-FkH">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="128"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rhd-8M-KAD">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rhd-8M-KAD">
                                                 <rect key="frame" x="20" y="22" width="85" height="85"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="85" id="cVq-94-tWp"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hàn Duy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MJ5-vk-33g">
-                                                <rect key="frame" x="152" y="22" width="181" height="39"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MJ5-vk-33g">
+                                                <rect key="frame" x="125" y="22" width="269" height="39"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="39" id="GJk-It-ejh"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="092471182" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ISi-VP-J8M">
-                                                <rect key="frame" x="152" y="61" width="181" height="39"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ISi-VP-J8M">
+                                                <rect key="frame" x="125" y="61" width="269" height="39"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -65,10 +65,10 @@
                                             <constraint firstItem="ISi-VP-J8M" firstAttribute="leading" secondItem="MJ5-vk-33g" secondAttribute="leading" id="0rD-Bl-Lg1"/>
                                             <constraint firstAttribute="height" constant="128" id="4q1-hP-R06"/>
                                             <constraint firstItem="ISi-VP-J8M" firstAttribute="top" secondItem="MJ5-vk-33g" secondAttribute="bottom" id="7oY-Ja-mhL"/>
-                                            <constraint firstItem="MJ5-vk-33g" firstAttribute="leading" secondItem="rhd-8M-KAD" secondAttribute="trailing" constant="47" id="9I1-4n-I2a"/>
+                                            <constraint firstItem="MJ5-vk-33g" firstAttribute="leading" secondItem="rhd-8M-KAD" secondAttribute="trailing" constant="20" id="9I1-4n-I2a"/>
                                             <constraint firstItem="ISi-VP-J8M" firstAttribute="width" secondItem="MJ5-vk-33g" secondAttribute="width" id="G3d-l7-ue0"/>
                                             <constraint firstAttribute="bottom" secondItem="rhd-8M-KAD" secondAttribute="bottom" constant="21" id="S5y-me-mqC"/>
-                                            <constraint firstAttribute="trailing" secondItem="MJ5-vk-33g" secondAttribute="trailing" constant="81" id="dCG-NJ-wil"/>
+                                            <constraint firstAttribute="trailing" secondItem="MJ5-vk-33g" secondAttribute="trailing" constant="20" id="dCG-NJ-wil"/>
                                             <constraint firstItem="rhd-8M-KAD" firstAttribute="leading" secondItem="gQ5-RB-FkH" secondAttribute="leading" constant="20" id="dyg-Pv-HYX"/>
                                             <constraint firstItem="ISi-VP-J8M" firstAttribute="height" secondItem="MJ5-vk-33g" secondAttribute="height" id="hXV-QD-Wft"/>
                                             <constraint firstItem="MJ5-vk-33g" firstAttribute="top" secondItem="gQ5-RB-FkH" secondAttribute="top" constant="22" id="qtA-8n-k6E"/>
@@ -136,6 +136,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Đổi ảnh đại diện"/>
+                                        <connections>
+                                            <action selector="changeAvatarButton:" destination="ck4-D1-Qje" eventType="touchUpInside" id="Mr2-lu-YCn"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Họ và tên" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ziz-js-2Gw">
                                         <rect key="frame" x="50" y="335" width="73" height="25"/>
@@ -263,16 +266,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TeF-iJ-2Dw">
                                 <rect key="frame" x="0.0" y="99" width="414" height="763"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="57" id="tBE-LA-LgH">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="57"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tBE-LA-LgH" id="8R8-Lw-Uxf">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="57"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
