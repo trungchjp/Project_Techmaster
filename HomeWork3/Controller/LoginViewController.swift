@@ -14,6 +14,8 @@ import SwiftyJSON
 
 class LoginViewController: UIViewController {
     
+    static let login = LoginViewController()
+    
     let contentView: UIView = {
         let view = UIView()
         //        view.backgroundColor = .red
@@ -98,16 +100,36 @@ class LoginViewController: UIViewController {
         self.present(mainVC, animated: true, completion: nil)
     }
     
+    func alertLogin (title: String) {
+
+        let alert = UIAlertController(title: title, message: "", preferredStyle: UIAlertController.Style.alert)
+        let cancel = UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel, handler: nil)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
     @objc func handLogin() {
-        guard let phone = phoneTextField.text else { return }
-        guard let password = passwordTextField.text else { return }
+        guard let phone = phoneTextField.text, !phone.isEmpty else {
+            alertLogin(title: "Chưa nhập số điện thoại")
+        return
+        }
+        guard let password = passwordTextField.text, !password.isEmpty else {
+            alertLogin(title: "Chưa nhập mật khẩu")
+        return
+        }
         LoginService.instance.loginUser(phone: phone, password: password) { (success) in
             if success {
-                let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ListIssueViewController") as! ListIssueViewController
-                let navigation = UINavigationController(rootViewController: mainVC)
+                let listVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ListIssueViewController") as! ListIssueViewController
+                let leftVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "LeftMenuViewController") as! LeftMenuViewController
+                leftVC.modalPresentationStyle = .overFullScreen
+                let navigation = UINavigationController(rootViewController: listVC)
                 navigation.modalPresentationStyle = .overFullScreen
-                self.present(navigation, animated: true, completion: nil)
+                let slideMenuController = SlideMenuController(mainViewController: navigation, leftMenuViewController: leftVC)
+                self.present(slideMenuController, animated: true, completion: nil)
                 print("Đăng nhập thành công!!!")
+            } else {
+                self.alertLogin(title: "Tài khoản không tồn tại")
             }
         }
     }

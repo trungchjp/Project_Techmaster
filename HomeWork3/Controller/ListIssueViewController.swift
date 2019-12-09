@@ -17,25 +17,27 @@ class ListIssueViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
-    static let instance = ListIssueViewController()
-    
     var issues = [IssueDataDetail]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.addLeftBarButtonWithImage(UIImage(named: "ic_menu")!)
+//        self.slideMenuController()?.removeLeftGestures()
+//        self.slideMenuController()?.addLeftGestures()
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
 
         navigationItem.title = "Danh sách sự cố"
-    
+
         navigationController?.navigationBar.barTintColor = UIColor.brown
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_menu"), style: .done, target: self, action: #selector(nextToLeft))
+
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_menu"), style: .done, target: self, action: #selector(nextToLeft))
         navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-        
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(search))
         navigationItem.rightBarButtonItem?.tintColor = .white
         
@@ -48,22 +50,7 @@ class ListIssueViewController: UIViewController {
         
     }
     
-    @objc func nextToLeft() {
-        let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "LeftMenuViewController") as! LeftMenuViewController
-        self.present(mainVC, animated: true, completion: nil)
-        let transition = CATransition()
-        transition.duration = 0.5
-        transition.type = CATransitionType.moveIn
-        transition.subtype = CATransitionSubtype.fromLeft
-//        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-        view.window!.layer.add(transition, forKey: kCATransition)
-    }
-    
     @objc func search() {
-        
-    }
-    
-    @objc func add() {
         
     }
     
@@ -85,9 +72,7 @@ class ListIssueViewController: UIViewController {
             getlist(index: 0)
         default:
             getlist(index: 0)
-            tableView.reloadData()
         }
-        tableView.reloadData()
     }
     
 }
@@ -114,8 +99,12 @@ extension ListIssueViewController: UITableViewDelegate, UITableViewDataSource {
         mainVC.info = issues[indexPath.row]
         let navigation = UINavigationController(rootViewController: mainVC)
         navigation.modalPresentationStyle = .overFullScreen
-        self.present(navigation, animated: true, completion: nil)
-        
+        self.present(navigation, animated: false, completion: nil)
+        let transition = CATransition()
+        transition.duration = 0.4
+        transition.type = CATransitionType.moveIn
+        transition.subtype = CATransitionSubtype.fromRight
+        view.window!.layer.add(transition, forKey: kCATransition)
         
     }
     

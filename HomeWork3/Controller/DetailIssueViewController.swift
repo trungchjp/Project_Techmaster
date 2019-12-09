@@ -57,7 +57,6 @@ class DetailIssueViewController: UIViewController {
         transition.duration = 0.5
         transition.type = CATransitionType.moveIn
         transition.subtype = CATransitionSubtype.fromLeft
-        //        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
         view.window!.layer.add(transition, forKey: kCATransition)
     }
 

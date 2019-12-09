@@ -16,15 +16,6 @@ class LoginService {
     
     let defaults = UserDefaults.standard
     
-    var authToken: String {
-        get {
-            return defaults.value(forKey: TOKEN_KEY) as! String
-        }
-        set {
-            defaults.set(newValue, forKey: TOKEN_KEY)
-        }
-    }
-    
     func loginUser(phone: String, password: String, completion: @escaping (_ Success: Bool )->()) {
         let params = [
             "phone": "\(phone)",
@@ -37,15 +28,12 @@ class LoginService {
                 let profileResponse = response.value
                 if profileResponse?.code == 0 {
                     if let res = profileResponse?.datas {
-                        print(res.token)
                         completion(true)
-                        guard let token = profileResponse?.datas?.token else {return}
-                        self.authToken = token
-//                        UserDefaults.standard.set(res.token, forKey: "token")
+                        UserDefaults.standard.set(res.token, forKey: "token")
                     }
                 }
                 else{
-                    print(profileResponse?.message)
+                    print(profileResponse?.message ?? "")
                 }
             } else {
                 completion(false)

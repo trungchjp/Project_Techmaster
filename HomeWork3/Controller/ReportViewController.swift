@@ -20,28 +20,23 @@ class ReportViewController: UIViewController {
         adressTextField.underlined(.gray)
         titleTextField.underlined(.gray)
         contentTextField.underlined(.gray)
+        
+        self.addLeftBarButtonWithImage(UIImage(named: "ic_menu")!)
 
         navigationItem.title = "Báo cáo sự cố"
 
         navigationController?.navigationBar.barTintColor = UIColor.brown
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_menu"), style: .done, target: self, action: #selector(back))
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_menu"), style: .done, target: self, action: #selector(back))
         navigationItem.leftBarButtonItem?.tintColor = UIColor.white
     
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Gửi", style: .done, target: self, action: #selector(back))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Gửi", style: .done, target: self, action: #selector(send))
         navigationItem.rightBarButtonItem?.tintColor = UIColor.white
                 
     }
-            
-    @objc func back() {
-        dismiss(animated: false, completion: nil)
-        let transition = CATransition()
-        transition.duration = 0.5
-        transition.type = CATransitionType.moveIn
-        transition.subtype = CATransitionSubtype.fromLeft
-        //        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-        view.window!.layer.add(transition, forKey: kCATransition)
+    
+    @objc func send() {
+        
     }
-
 }

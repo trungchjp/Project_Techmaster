@@ -15,6 +15,8 @@ class LeftMenuViewController: UIViewController {
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    var profile = ProfileData()
+    
     var datas = [Category]()
     
     let items = ["Báo cáo sự cố", "Danh sách sự cố", "Hồ sơ", "Cài đặt", "Đăng xuất"]
@@ -39,6 +41,13 @@ class LeftMenuViewController: UIViewController {
 //        }
 //        let entity = Category(image: icons[], name: items[IndexPath])
 //        datas.append(entity)
+        
+        ProfileService.profile.loadProfile { (entity) in
+            self.profile = entity
+            self.nameLabel.text = self.profile.name
+            self.phoneLabel.text = self.profile.phone
+        }
+        
     }
     
     func confirm() {
@@ -93,38 +102,40 @@ extension LeftMenuViewController: UITableViewDelegate, UITableViewDataSource {
             
             let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ReportViewController") as! ReportViewController
             let navigation = UINavigationController(rootViewController: mainVC)
-            navigation.modalPresentationStyle = .overFullScreen
-            self.present(navigation, animated: false, completion: nil)
-            moveSlide()
+            self.slideMenuController()?.changeMainViewController(navigation, close: true)
             
         case "Danh sách sự cố":
             
-            dismiss(animated: false, completion: nil)
-            moveSlide()
+            let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ListIssueViewController") as! ListIssueViewController
+            let navigation = UINavigationController(rootViewController: mainVC)
+            self.slideMenuController()?.changeMainViewController(navigation, close: true)
             
         case "Hồ sơ":
             
             let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "UpdateViewController") as! UpdateViewController
             let navigation = UINavigationController(rootViewController: mainVC)
-            navigation.modalPresentationStyle = .overFullScreen
-            self.present(navigation, animated: false, completion: nil)
-            moveSlide()
+            self.slideMenuController()?.changeMainViewController(navigation, close: true)
             
         case "Cài đặt":
-            
+
             let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SettingViewController") as! SettingViewController
             let navigation = UINavigationController(rootViewController: mainVC)
-            navigation.modalPresentationStyle = .overFullScreen
-            self.present(navigation, animated: false, completion: nil)
-            moveSlide()
-            
+            self.slideMenuController()?.changeMainViewController(navigation, close: true)
         case "Đăng xuất":
-            
+            self.resetDefaults()
             print("Đăng xuất")
             confirm()
             
         default:
             return
+        }
+    }
+    
+    func resetDefaults() {
+        let defaults = UserDefaults.standard
+        let dictionary = defaults.dictionaryRepresentation()
+        dictionary.keys.forEach { key in
+            defaults.removeObject(forKey: key)
         }
     }
 
