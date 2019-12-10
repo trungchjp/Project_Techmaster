@@ -11,13 +11,14 @@ import Photos
 
 class UpdateViewController: UIViewController {
     
-    var image = UIImage()
+//    var image = UIImage()
     
     var avatar: String?
     
     var profile = ProfileData()
     
     var imagePicker: UIImagePickerController!
+    var onUpdateUser: ((String, String, UIImage?) -> Void)?
 
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
@@ -30,8 +31,8 @@ class UpdateViewController: UIViewController {
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
 
-//        avatarImageView.image = UIImage(named: "avatar")
-//        avatarImageView.layer.cornerRadius = self.avatarImageView.frame.width/2
+        self.avatarImageView.setImage(self.profile.avatar)
+        avatarImageView.layer.cornerRadius = self.avatarImageView.frame.width/2
 
         nameTextField.underlined(.gray)
         phoneTextField.underlined(.gray)
@@ -44,7 +45,6 @@ class UpdateViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.brown
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
 
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_menu"), style: .done, target: self, action: #selector(back))
         navigationItem.leftBarButtonItem?.tintColor = UIColor.white
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cập nhật", style: .done, target: self, action: #selector(update))
@@ -68,6 +68,7 @@ class UpdateViewController: UIViewController {
         UpdateProfileService.update.updateProfile(name: name, address: address, phone: phone, avatar: avatar ?? "") { (success) in
             if success {
                 self.slideMenuController()?.toggleLeft()
+                self.onUpdateUser?(name, phone, self.avatarImageView.image)
                 print("Cập nhật thành công!!!")
             }
         }

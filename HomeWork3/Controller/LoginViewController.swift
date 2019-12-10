@@ -14,6 +14,8 @@ import SwiftyJSON
 
 class LoginViewController: UIViewController {
     
+    var window: UIWindow?
+    
     static let login = LoginViewController()
     
     let contentView: UIView = {
@@ -123,8 +125,10 @@ class LoginViewController: UIViewController {
                 let listVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ListIssueViewController") as! ListIssueViewController
                 let leftVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "LeftMenuViewController") as! LeftMenuViewController
                 let navigation = UINavigationController(rootViewController: listVC)
-                navigation.modalPresentationStyle = .overCurrentContext
                 let slideMenuController = SlideMenuController(mainViewController: navigation, leftMenuViewController: leftVC)
+                slideMenuController.modalPresentationStyle = .overFullScreen
+//                self.window?.rootViewController = slideMenuController
+//                self.window?.makeKeyAndVisible()
                 self.present(slideMenuController, animated: true, completion: nil)
                 print("Đăng nhập thành công!!!")
             } else {

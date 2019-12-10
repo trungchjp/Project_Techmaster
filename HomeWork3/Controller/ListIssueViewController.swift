@@ -30,7 +30,6 @@ class ListIssueViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.brown
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
 
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_menu"), style: .done, target: self, action: #selector(nextToLeft))
         navigationItem.leftBarButtonItem?.tintColor = UIColor.white
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(search))
@@ -61,10 +60,7 @@ class ListIssueViewController: UIViewController {
                 self.tableView.reloadData()
             }
         default:
-            LoadIssuesService.issues.loadIssues1 { (issues) in
-                self.issues = issues
-                self.tableView.reloadData()
-            }
+            return
         }
     }
     
@@ -78,7 +74,6 @@ extension ListIssueViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListIssueTableViewCell", for: indexPath) as! ListIssueTableViewCell
-//        cell?.textLabel?.text = self.issues[indexPath.row].titleissue
         cell.titleLabel.text = issues[indexPath.row].titleissue
         cell.timeLabel.text = issues[indexPath.row].timeissue
         cell.dateLabel.text = issues[indexPath.row].dateissue

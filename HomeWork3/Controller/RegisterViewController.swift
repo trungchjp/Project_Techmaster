@@ -228,8 +228,6 @@ class RegisterViewController: UIViewController {
             rePasswordTextField.leftViewMode = .always
         
     }
-    
-
 }
 
 

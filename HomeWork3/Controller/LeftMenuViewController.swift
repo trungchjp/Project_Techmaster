@@ -16,6 +16,8 @@ class LeftMenuViewController: UIViewController {
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    var refreshControl = UIRefreshControl()
+    
     var profile = ProfileData()
     
     var datas = [Category]()
@@ -27,6 +29,7 @@ class LeftMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         
         avatarImageView.layer.cornerRadius = self.avatarImageView.frame.width/2
         
@@ -115,6 +118,11 @@ extension LeftMenuViewController: UITableViewDelegate, UITableViewDataSource {
             
             let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "UpdateViewController") as! UpdateViewController
             let navigation = UINavigationController(rootViewController: mainVC)
+            mainVC.onUpdateUser = { [weak self] name,phone,image in
+                self?.avatarImageView.image = image
+                self?.nameLabel.text = name
+                self?.phoneLabel.text = phone
+            }
             self.slideMenuController()?.changeMainViewController(navigation, close: true)
             
         case "Cài đặt":
