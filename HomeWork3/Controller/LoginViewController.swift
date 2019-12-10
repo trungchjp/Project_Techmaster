@@ -14,13 +14,11 @@ import SwiftyJSON
 
 class LoginViewController: UIViewController {
     
-    var window: UIWindow?
-    
+    public var window: UIWindow?
     static let login = LoginViewController()
     
     let contentView: UIView = {
         let view = UIView()
-        //        view.backgroundColor = .red
         return view
     }()
     
@@ -73,11 +71,6 @@ class LoginViewController: UIViewController {
         return label
     }()
     
-    
-    deinit {
-        print("Huỷ AlamofireObjectMapper")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -103,12 +96,9 @@ class LoginViewController: UIViewController {
     }
     
     func alertLogin (title: String) {
-
-        let alert = UIAlertController(title: title, message: "", preferredStyle: UIAlertController.Style.alert)
-        let cancel = UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel, handler: nil)
-        alert.addAction(cancel)
+        let alert = UIAlertController(title: "", message: title, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
-        
     }
     
     @objc func handLogin() {
@@ -129,7 +119,8 @@ class LoginViewController: UIViewController {
                 slideMenuController.modalPresentationStyle = .overFullScreen
 //                self.window?.rootViewController = slideMenuController
 //                self.window?.makeKeyAndVisible()
-                self.present(slideMenuController, animated: true, completion: nil)
+                UIApplication.shared.keyWindow?.rootViewController = slideMenuController
+//                self.present(slideMenuController, animated: true, completion: nil)
                 print("Đăng nhập thành công!!!")
             } else {
                 self.alertLogin(title: "Tài khoản không tồn tại")

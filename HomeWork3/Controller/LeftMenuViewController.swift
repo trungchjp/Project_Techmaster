@@ -39,13 +39,6 @@ class LeftMenuViewController: UIViewController {
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         
-//        for 1...10 in {
-//            let entity = Category(image: icons[], name: items[IndexPath])
-//            datas.append(entity)
-//        }
-//        let entity = Category(image: icons[], name: items[IndexPath])
-//        datas.append(entity)
-        
         ProfileService.profile.loadProfile { (entity) in
             self.profile = entity
             self.nameLabel.text = self.profile.name

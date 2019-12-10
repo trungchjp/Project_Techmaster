@@ -114,6 +114,8 @@ class RegisterViewController: UIViewController {
                 navigation.modalPresentationStyle = .overFullScreen
                 self.present(navigation, animated: true, completion: nil)
                 print("Tạo tài khoản thành công!!!")
+            } else {
+                print("Tạo tài khoản không thành công!!!")
             }
         }
     }

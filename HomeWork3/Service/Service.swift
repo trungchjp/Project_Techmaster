@@ -14,7 +14,7 @@ class LoginService {
     
     static let instance = LoginService()
     
-    let defaults = UserDefaults.standard
+    private let defaults = UserDefaults.standard
     
     func loginUser(phone: String, password: String, completion: @escaping (_ Success: Bool )->()) {
         let params = [
@@ -23,7 +23,6 @@ class LoginService {
         ]
 
         AF.request(URL_LOGIN, method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseObject { (response: AFDataResponse<ProfileResult>) in
-            print(phone, password)
             if response.error == nil {
                 let profileResponse = response.value
                 if profileResponse?.code == 0 {
@@ -33,7 +32,7 @@ class LoginService {
                     }
                 }
                 else{
-                    print(profileResponse?.message ?? "")
+                    completion(false)
                 }
             } else {
                 completion(false)
@@ -54,7 +53,6 @@ class RegisterService {
         ]
         
         AF.request(URL_REGISTER, method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseObject { (response: AFDataResponse<ProfileResult>) in
-            print(name, phone, password)
             if response.error == nil {
                 let profileResponse = response.value
                 if (profileResponse?.datas) != nil {
@@ -141,7 +139,6 @@ class UpdateProfileService {
         ]
         
         AF.request(URL_UPDATE, method: .put, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders.init(header)).responseObject { (response: AFDataResponse<Profile>) in
-            print(name, address, phone)
             if response.error == nil {
                 let profileResponse = response.value
                 if profileResponse != nil{
@@ -173,7 +170,6 @@ class CreateIssueService {
         ]
         
         AF.request(URL_CREATEISSUE, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders.init(header)).responseObject { (response: AFDataResponse<IssueResult>) in
-            print(title, content, address)
             if response.error == nil {
                 let profileResponse = response.value
                 if profileResponse != nil{

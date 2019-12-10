@@ -11,42 +11,33 @@ import Photos
 
 class UpdateViewController: UIViewController {
     
-//    var image = UIImage()
-    
-    var avatar: String?
-    
-    var profile = ProfileData()
-    
-    var imagePicker: UIImagePickerController!
-    var onUpdateUser: ((String, String, UIImage?) -> Void)?
-
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var adressTextField: UITextField!
-    
+
+    var avatar: String?
+    var profile = ProfileData()
+    var imagePicker: UIImagePickerController!
+    var onUpdateUser: ((String, String, UIImage?) -> Void)?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-
-        self.avatarImageView.setImage(self.profile.avatar)
+        avatarImageView.setImage(self.profile.avatar)
         avatarImageView.layer.cornerRadius = self.avatarImageView.frame.width/2
 
         nameTextField.underlined(.gray)
         phoneTextField.underlined(.gray)
         adressTextField.underlined(.gray)
         
-        self.addLeftBarButtonWithImage(UIImage(named: "ic_menu")!)
-        
+        addLeftBarButtonWithImage(UIImage(named: "ic_menu")!)
         navigationItem.title = "Hồ sơ"
-
         navigationController?.navigationBar.barTintColor = UIColor.brown
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-
         navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cập nhật", style: .done, target: self, action: #selector(update))
         navigationItem.rightBarButtonItem?.tintColor = UIColor.white
 
@@ -58,7 +49,6 @@ class UpdateViewController: UIViewController {
             self.avatarImageView.setImage(self.profile.avatar)
             self.avatar = self.profile.avatar
         }
-        
     }
     
     @objc func update() {
@@ -70,13 +60,13 @@ class UpdateViewController: UIViewController {
                 self.slideMenuController()?.toggleLeft()
                 self.onUpdateUser?(name, phone, self.avatarImageView.image)
                 print("Cập nhật thành công!!!")
+            } else {
+                print("Cập nhật thất bại!!!")
             }
         }
-        
-        
     }
+    
     @IBAction func changeAvatarButton(_ sender: Any) {
-        
         let alert = UIAlertController(title: "Chọn ảnh từ", message: "", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Hủy", style: .cancel, handler: nil)
         let camera = UIAlertAction(title: "Máy ảnh", style: .default, handler: { (_) in
@@ -92,7 +82,6 @@ class UpdateViewController: UIViewController {
         alert.addAction(libray)
         alert.addAction(cancel)
         present(alert, animated: true, completion: nil)
-        
     }
     
     func confirm(message: String, viewController: UIViewController?, success: @escaping () -> Void) {
@@ -110,15 +99,13 @@ class UpdateViewController: UIViewController {
                 else { return}
             
             if UIApplication.shared.canOpenURL(settingUrl) {
-                if #available(ios 10.0, *) {
-                    UIApplication.shared.openURL(settingUrl)
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.canOpenURL(settingUrl)
                 } else {
                     UIApplication.shared.openURL(settingUrl)
                 }
             }
         }
-        
-        
     }
     
     private func fromCamera() {
