@@ -7,17 +7,47 @@
 //
 
 import UIKit
-
+@available(iOS 13.0, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+//        if LoginService.instance.authToken == nil {
+//            let mainVC = LoginViewController()
+//            window?.rootViewController?.present(mainVC, animated: true, completion: nil)
+//        }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+               window?.windowScene = windowScene
+               
+               let token = UserDefaults.standard.string(forKey: "token") ?? ""
+               
+               if token.isEmpty {
+                   startLogIn()
+               }
+               else{
+                   startMain()
+               }
+    }
+    
+    func startLogIn(){
+        let loginVC = LoginViewController()
+        window?.rootViewController = loginVC
+        window?.makeKeyAndVisible()
+    }
+    
+    func startMain(){
+        let listVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ListIssueViewController") as! ListIssueViewController
+        let leftVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "LeftMenuViewController") as! LeftMenuViewController
+        let navigation = UINavigationController(rootViewController: listVC)
+        navigation.modalPresentationStyle = .overFullScreen
+        navigation.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        let slideMenuController = SlideMenuController(mainViewController: navigation, leftMenuViewController: leftVC)
+        SlideMenuOptions.contentViewScale = 1
+        window?.rootViewController = slideMenuController
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
