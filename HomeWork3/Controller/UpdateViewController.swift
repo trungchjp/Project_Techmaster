@@ -192,7 +192,7 @@ extension UpdateViewController: UIImagePickerControllerDelegate, UINavigationCon
         }) { (failure) in
             print("Lấy ảnh lỗi")
         }
-        self.avatarImageView.image = selectedImage
+        avatarImageView.image = selectedImage
         dismiss(animated: true, completion: nil)
     }
 }

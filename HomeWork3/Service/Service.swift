@@ -165,7 +165,7 @@ class CreateIssueService {
           "title": "\(title)",
           "content": "\(content)",
           "address": "\(address)",
-          "status": "Đã xử lý",
+          "status": "Chưa xử lý",
           "media": ["\(media)"]
         ]
         

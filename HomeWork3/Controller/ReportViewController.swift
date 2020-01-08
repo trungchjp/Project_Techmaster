@@ -28,7 +28,6 @@ class ReportViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.brown
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
 
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_menu"), style: .done, target: self, action: #selector(back))
         navigationItem.leftBarButtonItem?.tintColor = UIColor.white
     
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Gửi", style: .done, target: self, action: #selector(send))
