@@ -1,0 +1,14 @@
+name: HomeWork3 # The name of the App
+options: # Some general settings for the project
+  createIntermediateGroups: true # If the folders are nested, also nest the groups in Xcode
+  indentWidth: 2 # indent by 2 spaces
+  tabWidth: 2 # a tab is 2 spaces
+  bundleIdPrefix: "de.number42"
+targets: # The List of our targets
+  HomeWork3:
+    type: application
+    platform: iOS
+    deploymentTarget: "13.1"
+    sources:
+      #Sources
+      - path: HomeWork3
