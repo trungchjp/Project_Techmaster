@@ -20,7 +20,8 @@ class DetailIssueViewController: UIViewController {
     static let detail = DetailIssueViewController()
     
     var name: Int?
-    
+
+    var name: String?
     
     var info = IssueDataDetail()
     
