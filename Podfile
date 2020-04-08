@@ -11,5 +11,4 @@ target 'HomeWork3' do
 	pod 'Alamofire'
 	pod 'AlamofireObjectMapper'
 	pod 'Kingfisher'
-	
 end

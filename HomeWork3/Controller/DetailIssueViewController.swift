@@ -19,6 +19,8 @@ class DetailIssueViewController: UIViewController {
     
     static let detail = DetailIssueViewController()
     
+    var name: String?
+    
     var info = IssueDataDetail()
     
     override func viewDidLoad() {
